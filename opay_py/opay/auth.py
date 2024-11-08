@@ -24,10 +24,8 @@ def public_key(pub_key=None, merchant_id=None) -> dict[str, str] | None:
         merchant_id = get_env_value("MERCHANT_ID")
     
     if pub_key and merchant_id:
-        data = {"pub_key": pub_key, "merchant_id": merchant_id}
-        json_data = json.dumps(data) 
-        print("Keys found:", json_data)
-        return json_data
+        data = {"pub_key": pub_key, "merchant_id": merchant_id} 
+        return data
     else:
         print("Key not found")
 

@@ -1,6 +1,7 @@
 from opay.auth import public_key
-from custom_error import Environment_Variable_Exception
 from helpers import public_key_signature
-# replace with your actual class
+from opay.opay_cashier.opay_cashier import Opay_Cashier
 
-print(public_key())
+#print(public_key_signature())
+app = Opay_Cashier(environment="production")
+print(app)
