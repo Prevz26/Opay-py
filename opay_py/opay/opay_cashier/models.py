@@ -34,7 +34,7 @@ class Params(BaseModel):
     amount: Amount
     callbackUrl: Optional[str]
     returnUrl: str
-    productList = List[ProductList] 
+    productList: List[ProductList] 
     cancelUrl: Optional[str]
     userClientIP: Optional[str]
     expireAt: Optional[str]
@@ -43,6 +43,4 @@ class Params(BaseModel):
     
     
 
-class Opay_Cashier():
-    def __init__(self) -> None:
- 
+

@@ -1,6 +1,6 @@
 import hashlib
 import hmac
-import requests
+import json
 
 from opay.auth import private_key, public_key
 
@@ -16,12 +16,14 @@ def private_key_signature(payload, secret_key=None):
         'MerchantId': merchant_id,
         'Content-Type': 'application/json'
         }
+    headers = json.dumps(headers)
     return headers
 
 def public_key_signature( pub_key=None):
     if pub_key is None:
         auth_details = public_key()
-        pub_key = auth_details.get("public_key", "key not found")
+       # print(auth_details)
+        pub_key = auth_details.get("pub_key", "key not found")
         merchant_id = auth_details.get("merchant_id", "merchant_id not found")
 
     headers = {
@@ -29,6 +31,7 @@ def public_key_signature( pub_key=None):
         'MerchantId': merchant_id,
         'Content-Type': 'application/json'
         }
+    headers = json.dumps(headers)
     return headers
 
 
