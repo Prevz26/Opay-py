@@ -16,7 +16,6 @@ def private_key_signature(payload, secret_key=None):
         'MerchantId': merchant_id,
         'Content-Type': 'application/json'
         }
-    headers = json.dumps(headers)
     return headers
 
 def public_key_signature( pub_key=None):
@@ -28,10 +27,8 @@ def public_key_signature( pub_key=None):
 
     headers = {
             'Authorization': f'Bearer {pub_key}',
-        'MerchantId': merchant_id,
-        'Content-Type': 'application/json'
+        'MerchantId': merchant_id, 
         }
-    headers = json.dumps(headers)
     return headers
 
 

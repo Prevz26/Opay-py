@@ -1,5 +1,7 @@
 from .models import *
+import json
 import helpers
+import requests
 import constants
 from typing import Optional
 
@@ -17,7 +19,14 @@ class Opay_Cashier():
             raise ValueError("Missing Environment: Environment args should be set to sandbox or production")
     def __repr__(self) -> str:
         return f"this class is instanisted correctly: headers:{self.headers}, environment: {self.environment}, base_url: {self.base_url}"
-    def request(self):
-        pass 
-        
+    
+    def request(self, payload: dict) -> dict:
+        self.payload: Params = Params(**payload) 
+        self.data = self.payload.model_dump()
 
+
+        self.response: requests.Response = requests.post(
+                url=self.base_url, headers=self.headers, json=self.data
+    )
+        print(self.response.status_code)
+        return self.response.json()
