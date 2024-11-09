@@ -1,13 +1,6 @@
 import fastapi
 #from pyngrok import ngrok
-from dotenv import load_dotenv
-import os
 from pydantic import BaseModel
-#from pyngrok.exception import NgrokLog, PyngrokNgrokError
-load_dotenv()
-
-ngrok_key = str(os.getenv("NGROK_AUTHTOKEN"))
-#print(ngrok_key )
 
 #ngrok.set_auth_token(ngrok_key)
 
@@ -17,10 +10,19 @@ class DataModel(BaseModel):
 
 app = fastapi.FastAPI()
 
-@app.post("/webhook/")
+@app.post("/callBack/")
 def webhook_func(data, DataModel):
-    print(f"data recived: {data}")
-    return {"message":"sucess"}
+    #print(f"data recived: {data}")
+ return {"message":"sucess"}
+
+@app.post("/cancelUrl")
+def cancel(data, DataModel):
+    return {"message":"sucess", "data": f"{data}"}
+
+@app.post("/returnUrl")
+def returnUrl(data, DataModel):
+    return {"message":"sucess", "data": f"{data}"}
+
 
 
 
