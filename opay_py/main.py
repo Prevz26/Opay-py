@@ -1,8 +1,8 @@
 import json
 from opay.auth import public_key
 from helpers import public_key_signature
-from opay.opay_cashier.opay_cashier import Opay_Cashier
-from opay.opay_cashier.models import Params
+from opay.express_checkout.opay_cashier import Opay_Cashier
+from opay.express_checkout.models import Params
 
 data = "data.json"
 #print(public_key_signature())
