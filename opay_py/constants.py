@@ -3,3 +3,5 @@ CASHIER_ENDPOINTS = {
 
     'production': "https://api.opaycheckout.com/api/v1/international/cashier/create"
 }
+
+print(CASHIER_ENDPOINTS.get("sandbox"))
