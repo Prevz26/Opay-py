@@ -1,6 +1,6 @@
 import json
-from opay.auth import public_key
-from helpers import public_key_signature
+#from opay.auth import public_key
+#from helpers import public_key_signature
 from opay.express_checkout.opay_cashier import Opay_Cashier
 from opay.express_checkout.models import Params
 
@@ -10,10 +10,13 @@ data = "data.json"
 with open(data, mode="r") as file:
     loaded_data = json.load(file)
 
-# print(public_key_signature())
-app = Opay_Cashier()
-print (app.headers)
-print (app.request(loaded_data))
+# headers = {'pub_key': 'OPAYPUB17307038061480.45658992285396927', 'merchant_id': '281824110469808'}
+
+
+app = Opay_Cashier(
+environment = "production")
+print (app.auth())
+#print (app.request(loaded_data))
 # d = Params(**loaded_data)
 # da = d.model_dump()
 # print(json.dumps(da, indent=4))
