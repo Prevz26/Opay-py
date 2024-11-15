@@ -9,6 +9,8 @@ Opay Python Client Library Documentation
 .. toctree::
    :maxdepth: 2
    :caption: Contents:
+   integration
+   opay_services 
 
 Welcome to the Python client library for Opay!
 

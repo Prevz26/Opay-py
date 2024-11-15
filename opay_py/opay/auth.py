@@ -9,17 +9,17 @@ BASE_DIR = Path(__file__).resolve().parent.parent.parent
 # Load .env file
 load_dotenv(dotenv_path=os.path.join(BASE_DIR, ".env"))
 
-def get_env_value(var_name: str) -> str | None:
+def get_env_value( var_name: str, path=None) -> str | None:
     """Function to get the value of an environment variable."""
     value = os.getenv(var_name)
     if value is None:
         raise Environment_Variable_Exception(f"Environment variable '{var_name}' not found.")
     return value
 
-def public_key(pub_key=None, merchant_id=None) -> dict[str, str] | None:
+def public_key(path = None, pub_key=None, merchant_id=None) -> dict[str, str] | None:
     """Function to return public key and merchant ID as a dictionary."""
     if pub_key is None:
-        pub_key = get_env_value("PUBLIC_KEY")
+        pub_key = get_env_value( "PUBLIC_KEY", path=None)
     if merchant_id is None:
         merchant_id = get_env_value("MERCHANT_ID")
     
@@ -29,10 +29,10 @@ def public_key(pub_key=None, merchant_id=None) -> dict[str, str] | None:
     else:
         print("Key not found")
 
-def private_key(prv_key=None, merchant_id=None) -> dict[str, str] | None:
+def private_key(path= None, prv_key=None, merchant_id=None) -> dict[str, str] | None:
     """Function to return private_key and merchant ID as a dictionary."""
     if prv_key is None:
-        prv_key = get_env_value("PRIVATE_KEY")
+        prv_key = get_env_value( "PRIVATE_KEY", path=None)
     if merchant_id is None:
         merchant_id = get_env_value("MERCHANT_ID")
     
