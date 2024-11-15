@@ -13,11 +13,13 @@ with open(data, mode="r") as file:
 # headers = {'pub_key': 'OPAYPUB17307038061480.45658992285396927', 'merchant_id': '281824110469808'}
 
 
-app = Opay_Cashier(
-environment = "production")
-print (app.auth())
-#print (app.request(loaded_data))
-# d = Params(**loaded_data)
+app = Opay_Cashier()
+app.auth()
+(app.request(loaded_data))
+
+
+
+#d = Params(**loaded_data)
 # da = d.model_dump()
 # print(json.dumps(da, indent=4))
 ##print(app)
