@@ -1,7 +1,6 @@
 import fastapi
 #from pyngrok import ngrok
 from pydantic import BaseModel
-
 #ngrok.set_auth_token(ngrok_key)
 
 class DataModel(BaseModel):

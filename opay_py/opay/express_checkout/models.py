@@ -1,9 +1,11 @@
+from enum import Enum
 from pydantic import BaseModel, EmailStr
 from typing import List, Optional
 
 class Amount(BaseModel):
     total: int
     currency: str
+
 
 class ProductList(BaseModel):
     productId: str
@@ -36,3 +38,32 @@ class Params(BaseModel):
     userInfo: UserModel
     product: Optional[Product] = None
     payMethod: Optional[str] = None
+
+
+
+class Status(Enum):
+    INITIAL = "INITIAL"
+    PENDING = "PENDING"
+    SUCCESS = "SUCCESS"
+    FAIL = "FAIL"
+    CLOSE = "CLOSE"
+
+
+class Response(BaseModel):
+    reference: str
+    orderNo: str
+    cashierUrl: str
+    status: Status
+    amount: Amount
+    vat: Amount
+
+
+
+
+
+
+
+    
+
+
+

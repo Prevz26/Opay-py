@@ -1,29 +1,29 @@
 {
-    "country": "EG",
-    "reference": "983541354",
+    "country": "US",
+    "reference": "123456789",
     "amount": {
-        "total": 400,
-        "currency": "EGP"
+        "total": 500,
+        "currency": "USD"
     },
-    "returnUrl": "https://your-return-url",
-    "callbackUrl": "https://your-call-back-url",
-    "cancelUrl": "https://your-cacel-url",
-    "expireAt":300,
-    "userInfo":{
-            "userEmail":"test@email.com",
-            "userId":"userid001",
-            "userMobile":"+201088889999",
-            "userName":"David"
+    "returnUrl": "https://your-updated-return-url",
+    "callbackUrl": "https://your-updated-call-back-url",
+    "cancelUrl": "https://your-updated-cancel-url",
+    "expireAt": 600,
+    "userInfo": {
+        "userEmail": "newuser@example.com",
+        "userId": "userid002",
+        "userMobile": "+15559998888",
+        "userName": "John Doe"
     },
-    "productList":[
+    "productList": [
         {
-            "productId":"productId",
-            "name":"name",
-            "description":"description",
-            "price":100,
-            "quantity":2,
-            "imageUrl":"https://imageUrl.com"
+            "productId": "prod002",
+            "name": "Sample Product",
+            "description": "This is a sample product description.",
+            "price": 250,
+            "quantity": 1,
+            "imageUrl": "https://newimageurl.com"
         }
     ],
-    "payMethod":"BankCard"
+    "payMethod": "CreditCard"
 }
