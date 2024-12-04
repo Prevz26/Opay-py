@@ -4,6 +4,7 @@ CASHIER_ENDPOINTS = {
     'production': "https://api.opaycheckout.com/api/v1/international/cashier/create"
 }
 
+ORDER_EXISTS = "Order already exists"
 
 AUTHENTICATION_FAILED = "authentication failed"
 INVALID_PARAMAS = "request parameters not valid"

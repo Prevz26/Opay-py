@@ -57,6 +57,9 @@ class Response(BaseModel):
     amount: Amount
     vat: Amount
 
+class Error(BaseModel):
+    code: str
+    message: str
 
 
 

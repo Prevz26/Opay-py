@@ -1,8 +1,7 @@
-from .models import *
-import json
-
-from ..auth import private_key_signature, public_key_signature
+from .models import * 
+from ..auth import public_key_signature
 import constants
+from custom_error import Opay_ResponseHandler, Custom_Response
 from typing import Optional, Any, Dict
 import requests
 
@@ -52,4 +51,17 @@ class Opay_Cashier:
         self.response = requests.post(
     url= self.base_url, json=self.data, headers=self.auth_keys)
         data = self.response.json()
-        return Response(**data)
+        if data["code"] != "00000":
+            error = Error(**data).model_dump()
+            error_code = error["code"]
+            #print(error)
+            opay_handler = Opay_ResponseHandler(error_code=error_code)
+            print (opay_handler.response)
+
+        else:
+            res = Response(**data).model_dump()
+            success =Custom_Response()
+            response = success.success_response(res)
+            #print(response)
+            
+       
