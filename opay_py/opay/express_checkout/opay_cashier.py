@@ -4,6 +4,9 @@ import constants
 from custom_error import Opay_ResponseHandler, Custom_Response
 from typing import Optional, Any, Dict
 import requests
+from requests.exceptions import ConnectionError
+import time
+
 
 
 class Opay_Cashier:
@@ -48,6 +51,8 @@ class Opay_Cashier:
         
         # Authenticate and set headers
         self.auth_keys = self.auth()  # This ensures headers are set or generated correctly
+
+        #To-do: error handling for failed connection
         self.response = requests.post(
     url= self.base_url, json=self.data, headers=self.auth_keys)
         data = self.response.json()
@@ -59,9 +64,10 @@ class Opay_Cashier:
             print (opay_handler.response)
 
         else:
+            #print(data)
             res = Response(**data).model_dump()
             success =Custom_Response()
             response = success.success_response(res)
-            #print(response)
+            print(response)
             
        

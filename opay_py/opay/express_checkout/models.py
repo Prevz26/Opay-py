@@ -48,18 +48,23 @@ class Status(Enum):
     FAIL = "FAIL"
     CLOSE = "CLOSE"
 
+class Error(BaseModel):
+    code: str
+    message: str
 
-class Response(BaseModel):
+class Data(BaseModel):
     reference: str
     orderNo: str
     cashierUrl: str
     status: Status
     amount: Amount
     vat: Amount
-
-class Error(BaseModel):
+class Response(BaseModel):
     code: str
     message: str
+    data: Data
+
+
 
 
 
