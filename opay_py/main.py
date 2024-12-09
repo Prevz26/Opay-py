@@ -8,8 +8,8 @@ with open(data, mode="r") as file:
     loaded_data = json.load(file)
 
 
-auth_key= {'Authorization': 'Bearer OPAYPUB17307038061480.45658992285396927', 'MerchantId': '281824110469808'}
-app = Opay_Cashier(auth_keys=auth_key)
+#auth_key= {'Authorization': 'Bearer OPAYPUB17307038061480.45658992285396927', 'MerchantId': '281824110469808'}
+app = Opay_Cashier()
 # print (app.auth())
 print(app.request(payload=loaded_data))
 #d = Params(**loaded_data)
