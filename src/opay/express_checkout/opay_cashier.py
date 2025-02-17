@@ -1,7 +1,7 @@
 from .models import * 
 from ..auth import public_key_signature
-import constants
-from custom_error import Opay_ResponseHandler, Custom_Response
+import utils.constants as constants
+from utils.custom_error import Opay_ResponseHandler, Custom_Response
 from typing import Optional, Any, Dict
 import requests
 from requests.exceptions import ConnectionError
@@ -11,6 +11,17 @@ import time
 
 class Opay_Cashier:
     def __init__(self, environment: str = "sandbox", auth_keys: Optional[Dict[str, Any]] = None) -> None:
+        """
+        Initialize the Opay_Cashier instance with the specified environment and optional authentication keys.
+
+        Args:
+            environment (str): The operating environment for the Opay_Cashier instance, either "sandbox" or "production".
+            auth_keys (Optional[Dict[str, Any]]): Optional dictionary containing authentication credentials.
+
+        Raises:
+            ValueError: If the environment is not "sandbox" or "production".
+        """
+
         self.environment = environment
         self.auth_keys = auth_keys if auth_keys else {}
         
@@ -19,21 +30,6 @@ class Opay_Cashier:
         
         if not self.base_url:
             raise ValueError("Invalid Environment: Environment should be 'sandbox' or 'production'")
-<<<<<<< HEAD
-    
-    def auth(self, path=None, **kwargs):
-        if not self.headers:
-        # Ensure the .env file is loaded if a path is provided
-            if path:
-                signature = helpers.public_key_signature(path=path)
-                return signature
-
-
-            else:
-            # Fallback to **kwargs if signature is unavailable
-                if 'public_key' in kwargs and 'merchant_id' in kwargs:
-                    self.headers = {
-=======
 
     def auth(self, **kwargs) -> dict:
         """Generate authentication headers if not provided, requiring 'public_key' and 'merchant_id'."""
@@ -43,20 +39,9 @@ class Opay_Cashier:
             # Ensure both 'public_key' and 'merchant_id' are provided in kwargs
             if 'public_key' in kwargs and 'merchantId' in kwargs:
                 self.auth_keys = {
->>>>>>> bfc9cb397bc0b399494c3b0152c715d2d0b01351
                     "Authorization": kwargs['public_key'],
                     "MerchantId": kwargs['merchantId']
                 }
-<<<<<<< HEAD
-                else:
-                    raise ValueError(
-                    "Authentication requires either valid keys in the .env file, "
-                    "valid 'public_key' and 'merchant_id' in kwargs, "
-                    "or a successful response from 'helpers.public_key_signature'."
-                )
-                return self.headers
-
-=======
             else:
                 # Generate keys using public_key_signature if no kwargs are given
                 self.auth_keys = public_key_signature()
@@ -65,7 +50,6 @@ class Opay_Cashier:
                 if 'Authorization' not in self.auth_keys or 'MerchantId' not in self.auth_keys:
                     raise ValueError("Authentication failed: Required 'public_key' and 'merchant_id' are missing.")
         return self.auth_keys
->>>>>>> bfc9cb397bc0b399494c3b0152c715d2d0b01351
 
     def __repr__(self) -> str:
         return (f"Opay_Cashier(environment: {self.environment}, auth_keys: {self.auth_keys}, "

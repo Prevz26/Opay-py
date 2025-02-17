@@ -5,7 +5,6 @@ CASHIER_ENDPOINTS = {
 }
 
 ORDER_EXISTS = "Order already exists"
-
 AUTHENTICATION_FAILED = "authentication failed"
 INVALID_PARAMAS = "request parameters not valid"
 PAY_METHOD_ERROR = "payMethod not supported"
