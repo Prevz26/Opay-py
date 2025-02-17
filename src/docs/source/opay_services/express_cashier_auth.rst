@@ -132,3 +132,8 @@ Summary
 
 The ``auth`` method is flexible, supporting both manual and automatic header generation while ensuring required credentials are always present. By following the examples and troubleshooting tips, you can securely authenticate and interact with Opay Cashier services using the ``Opay_Cashier`` client library.
 ```
+
+three methods for auth
+directly passing the keys in the Opay cashier class as a dictionary
+using the auth method from this class
+having your keys in the .env and have the class automatically get the keys 

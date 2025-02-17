@@ -1,76 +1,61 @@
-from utils.custom_error import Environment_Variable_Exception  
+from utils.custom_error import Environment_Variable_Exception
 from decouple import config
 import hashlib
 import hmac
 
+class Auth:
+    def __init__(self, pub_key=None, merchant_id=None, prv_key=None):
+        self.pub_key = pub_key
+        self.merchant_id = merchant_id
+        self.prv_key = prv_key
 
-def get_env_value( var_name: str) -> str | None:
-    """Function to get the value of an environment variable."""
-    value = config(var_name)
-    if value is None:
-        raise Environment_Variable_Exception(f"Environment variable '{var_name}' not found.")
-    
-    return value
+    def get_env_value(self, var_name: str) -> str:
+        value = config(var_name)
+        if value is None:
+            raise Environment_Variable_Exception(f"Environment variable '{var_name}' not found.")
+        return value
 
-def get_public_key(pub_key=None, merchant_id=None) -> dict[str, str] | None:
-    """Function to return public key and merchant ID as a dictionary."""
-    try:
-        if pub_key is None:
-            pub_key = get_env_value( "PUBLIC_KEY")
-        if merchant_id is None:
-            merchant_id = get_env_value("MERCHANT_ID")
+    def get_public_key(self) -> dict[str, str]:
+        if self.pub_key is None:
+            self.pub_key = self.get_env_value("PUBLIC_KEY")
+        if self.merchant_id is None:
+            self.merchant_id = self.get_env_value("MERCHANT_ID")
 
-        if pub_key and merchant_id:
-            data = {"pub_key": pub_key, "merchant_id": merchant_id} 
-            return data
-        else:
-            print("Key not found")
-    except Environment_Variable_Exception as e:
-        return f"Error: {e}"   
-     
-def get_private_key(prv_key=None, merchant_id=None) -> dict[str, str] | None:
-    """Function to return private_key and merchant ID as a dictionary."""
-    try:
-        if prv_key is None:
-            prv_key = get_env_value( "PRIVATE_KEY")
-        if merchant_id is None:
-            merchant_id = get_env_value("MERCHANT_ID")
-        
-        if prv_key and merchant_id:
-            json_data = {"prv_key": prv_key, "merchant_id": merchant_id}
-            print("Keys found:", json_data)
-            return json_data
-        else:
-            print("Key not found")
-    except Environment_Variable_Exception as e:
-        return f"Error: {e}"
+        if self.pub_key and self.merchant_id:
+            return {"pub_key": self.pub_key, "merchant_id": self.merchant_id}
+        raise ValueError("Public key or merchant ID not found")
 
+    def get_private_key(self) -> dict[str, str]:
+        if self.prv_key is None:
+            self.prv_key = self.get_env_value("PRIVATE_KEY")
+        if self.merchant_id is None:
+            self.merchant_id = self.get_env_value("MERCHANT_ID")
 
-def private_key_signature(payload, secret_key=None):
-    if secret_key is None:
-        auth_details = get_private_key()
-        secret_key = auth_details.get("private_key", "key not found")
-        merchant_id = auth_details.get("merchant_id", "merchant_id not found")
+        if self.prv_key and self.merchant_id:
+            return {"prv_key": self.prv_key, "merchant_id": self.merchant_id}
+        raise ValueError("Private key or merchant ID not found")
 
-    signature = hmac.new(secret_key.encode(), payload.encode(), hashlib.sha512).hexdigest()
-    headers = {
-        'Authorization': f'Bearer {signature}',
-        'MerchantId': merchant_id,
-        'Content-Type': 'application/json'
+    def private_key_signature(self, payload: str) -> dict[str, str]:
+        if self.prv_key is None:
+            auth_details = self.get_private_key()
+            self.prv_key = auth_details["prv_key"]
+            self.merchant_id = auth_details["merchant_id"]
+
+        signature = hmac.new(self.prv_key.encode(), payload.encode(), hashlib.sha512).hexdigest()
+        return {
+            'Authorization': f'Bearer {signature}',
+            'MerchantId': self.merchant_id,
+            'Content-Type': 'application/json'
         }
-    return headers
 
-def public_key_signature( pub_key=None):
-    if pub_key is None:
-        auth_details = get_public_key()
-       # print(auth_details)
-        pub_key = auth_details.get("pub_key", "key not found")
-        merchant_id = auth_details.get("merchant_id", "merchant_id not found")
+    def public_key_signature(self) -> dict[str, str]:
+        if self.pub_key is None:
+            auth_details = self.get_public_key()
+            self.pub_key = auth_details["pub_key"]
+            self.merchant_id = auth_details["merchant_id"]
 
-    headers = {
-        'Authorization': f'Bearer {pub_key}',
-        'MerchantId': merchant_id, 
+        return {
+            'Authorization': f'Bearer {self.pub_key}',
+            'MerchantId': self.merchant_id,
         }
-    return headers
-
 

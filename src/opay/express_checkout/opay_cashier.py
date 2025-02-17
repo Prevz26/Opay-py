@@ -32,8 +32,23 @@ class Opay_Cashier:
             raise ValueError("Invalid Environment: Environment should be 'sandbox' or 'production'")
 
     def auth(self, **kwargs) -> dict:
-        """Generate authentication headers if not provided, requiring 'public_key' and 'merchant_id'."""
         
+        """
+        Set or generate authentication keys for the Opay_Cashier instance.
+
+        If the auth_keys attribute is empty, this method will validate and set the
+        authentication keys using the provided keyword arguments, or generate them
+        using the public_key_signature function.
+
+        Args:
+            **kwargs: Optional keyword arguments containing authentication credentials.
+
+        Returns:
+            dict: A dictionary containing the authentication keys.
+
+        Raises:
+            ValueError: If the required 'public_key' and 'merchant_id' are missing.
+        """
         # Check if auth_keys are already set, otherwise validate **kwargs
         if not self.auth_keys:
             # Ensure both 'public_key' and 'merchant_id' are provided in kwargs

@@ -7,7 +7,6 @@ from pathlib import Path
 # Get the path to the .env file located 3 directories up from the current file
 path = Path(__file__).resolve().parent.parent / '.env'
 
-print(path)
 
 data = "utils/data.json"
 with open(data, mode="r") as file:
