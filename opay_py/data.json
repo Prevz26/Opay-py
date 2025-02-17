@@ -1,6 +1,6 @@
 {
     "country": "EG",
-    "reference": "983541354",
+    "reference": "4567898765612",
     "amount": {
         "total": 400,
         "currency": "EGP"
@@ -8,22 +8,22 @@
     "returnUrl": "https://your-return-url",
     "callbackUrl": "https://your-call-back-url",
     "cancelUrl": "https://your-cacel-url",
-    "expireAt":300,
-    "userInfo":{
-            "userEmail":"test@email.com",
-            "userId":"userid001",
-            "userMobile":"+201088889999",
-            "userName":"David"
+    "expireAt": 300,
+    "userInfo": {
+        "userEmail": "test@email.com",
+        "userId": "userid001",
+        "userMobile": "+201088889999",
+        "userName": "David"
     },
-    "productList":[
+    "productList": [
         {
-            "productId":"productId",
-            "name":"name",
-            "description":"description",
-            "price":100,
-            "quantity":2,
-            "imageUrl":"https://imageUrl.com"
+            "productId": "productId",
+            "name": "name",
+            "description": "description",
+            "price": 100,
+            "quantity": 2,
+            "imageUrl": "https://imageUrl.com"
         }
     ],
-    "payMethod":"BankCard"
+    "payMethod": "BankCard"
 }
