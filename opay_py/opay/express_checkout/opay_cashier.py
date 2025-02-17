@@ -17,26 +17,30 @@ class Opay_Cashier:
         
         if not self.base_url:
             raise ValueError("Invalid Environment: Environment should be 'sandbox' or 'production'")
-
-    def auth(self, **kwargs) -> dict:
-        """Generate authentication headers if not provided, requiring 'public_key' and 'merchant_id'."""
-        
-        # Check if headers are already set, otherwise validate **kwargs
+    
+    def auth(self, path=None, **kwargs):
         if not self.headers:
-            # Ensure both 'public_key' and 'merchant_id' are provided in kwargs
-            if 'public_key' in kwargs and 'merchant_id' in kwargs:
-                self.headers = {
+        # Ensure the .env file is loaded if a path is provided
+            if path:
+                signature = helpers.public_key_signature(path=path)
+                return signature
+
+
+            else:
+            # Fallback to **kwargs if signature is unavailable
+                if 'public_key' in kwargs and 'merchant_id' in kwargs:
+                    self.headers = {
                     "Authorization": kwargs['public_key'],
                     "Merchant-Id": kwargs['merchant_id']
                 }
-            else:
-                # Generate headers using public_key_signature if no kwargs are given
-                self.headers = helpers.public_key_signature()
-                
-                # Verify that the generated headers contain the required fields
-                if 'Authorization' not in self.headers or 'Merchant-Id' not in self.headers:
-                    raise ValueError("Authentication failed: Required 'public_key' and 'merchant_id' are missing.")
-        return self.headers
+                else:
+                    raise ValueError(
+                    "Authentication requires either valid keys in the .env file, "
+                    "valid 'public_key' and 'merchant_id' in kwargs, "
+                    "or a successful response from 'helpers.public_key_signature'."
+                )
+                return self.headers
+
 
     def __repr__(self) -> str:
         return (f"Opay_Cashier(environment: {self.environment}, headers: {self.headers}, "
