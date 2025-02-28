@@ -2,3 +2,28 @@
 /env
 **/__pycache__/
 *.pyc
+
+/*************  ✨ Codeium Command ⭐  ************/
+build/
+dist/
+.tox
+.nox
+.coverage
+.cache
+.pytest_cache
+nosetests.xml
+coverage.xml
+*.egg
+*.egg-info
+*.spec
+*.log
+*.db
+*.sqlite
+*.db-journal
+instance
+.local
+.env.local
+.env.development.local
+.env.production.local
+.env.test.local
+/******  9d296a89-c308-43a2-bb27-bdb82511684b  *******/
